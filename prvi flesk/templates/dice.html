@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Met kocke 🎲</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            background:
+                radial-gradient(circle at 20% 20%, #5334a8 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, #a52c88 0%, transparent 40%),
+                linear-gradient(135deg, #090b20, #171333, #090b20);
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 480px;
+            padding: 50px 35px;
+            text-align: center;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            animation: appear 0.8s ease;
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 35px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fff, #c9a7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #bcb7d8;
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+
+        .dice {
+            width: 155px;
+            height: 155px;
+            margin: 0 auto 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+            border-radius: 30px;
+            background: linear-gradient(145deg, #ffffff, #d9d4ff);
+            color: #201044;
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.35),
+                inset 0 4px 10px rgba(255,255,255,0.9);
+            animation: diceAppear 0.7s ease;
+            transition: transform 0.3s;
+        }
+
+        .dice:hover {
+            transform: rotate(8deg) scale(1.07);
+        }
+
+        .result {
+            font-size: 21px;
+            color: #c9c2e8;
+            margin-bottom: 12px;
+        }
+
+        .number {
+            font-size: 65px;
+            font-weight: 900;
+            color: #ffcc70;
+            text-shadow: 0 0 25px rgba(255, 204, 112, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 16px 38px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #21143d;
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #ffda85, #ff9eac);
+            box-shadow: 0 8px 25px rgba(255, 158, 172, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button:hover {
+            transform: translateY(-5px) scale(1.04);
+            box-shadow: 0 15px 35px rgba(255, 158, 172, 0.5);
+        }
+
+        .button:active {
+            transform: scale(0.96);
+        }
+
+        .footer {
+            margin-top: 35px;
+            color: #8882aa;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes diceAppear {
+            0% {
+                transform: rotate(-30deg) scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .dice {
+                width: 130px;
+                height: 130px;
+                font-size: 85px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="icon">🎲</div>
+
+        <h1>MET KOCKE</h1>
+
+        <p class="subtitle">
+            Sreča je na tvoji strani. Poskusi svojo srečo!
+        </p>
+
+        <div class="dice">
+            {% if kocka == 1 %}⚀
+            {% elif kocka == 2 %}⚁
+            {% elif kocka == 3 %}⚂
+            {% elif kocka == 4 %}⚃
+            {% elif kocka == 5 %}⚄
+            {% elif kocka == 6 %}⚅
+            {% else %}🎲
+            {% endif %}
+        </div>
+
+        <p class="result">Vrgel si:</p>
+
+        <div class="number">{{ kocka }}</div>
+
+        <button class="button" onclick="window.location.reload()">
+            🎲 Vrzi ponovno
+        </button>
+
+        <div class="footer">
+            GOOD LUCK • HAVE FUN
+        </div>
+
+    </div>
+
+</body>
+</html>

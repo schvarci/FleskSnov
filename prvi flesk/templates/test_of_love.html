@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Calculator 💖</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+    overflow-x: hidden;
+    background: linear-gradient(135deg,
+        #ff4e91, #ff79b0, #c471ed, #8e72ff);
+    background-size: 300% 300%;
+    animation: gradient 8s ease infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Lebdeči srčki */
+
+.heart {
+    position: fixed;
+    font-size: 30px;
+    opacity: 0.35;
+    animation: floating 5s infinite ease-in-out;
+    pointer-events: none;
+}
+
+.h1 { top: 10%; left: 8%; }
+.h2 { top: 20%; right: 10%; animation-delay: 1s; }
+.h3 { bottom: 15%; left: 12%; animation-delay: 2s; }
+.h4 { bottom: 10%; right: 12%; animation-delay: 3s; }
+.h5 { top: 50%; left: 3%; animation-delay: 1.5s; }
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-35px) rotate(20deg); }
+}
+
+/* Glavna kartica */
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    padding: 40px 30px;
+    text-align: center;
+    border-radius: 35px;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 25px 70px rgba(100, 20, 100, 0.3);
+    animation: appear 0.8s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.logo {
+    font-size: 65px;
+    animation: heartbeat 1.3s infinite;
+    margin-bottom: 5px;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+}
+
+h1 {
+    font-size: 38px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff3685, #9b45e8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #8d679a;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+/* Vnosna polja */
+
+.input-box {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    color: #a13c83;
+    font-weight: 800;
+    margin-bottom: 9px;
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 16px 18px;
+    border: 2px solid #f4c6e3;
+    border-radius: 16px;
+    background: #fff7fc;
+    outline: none;
+    font-size: 16px;
+    color: #8c367d;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #e84d9b;
+    background: white;
+    box-shadow: 0 0 15px rgba(232,77,155,0.2);
+    transform: scale(1.02);
+}
+
+input::placeholder {
+    color: #c9a4c0;
+}
+
+/* Gumb */
+
+.button {
+    width: 100%;
+    padding: 17px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #ff3885, #c044e8, #8c54ff);
+    color: white;
+    font-size: 17px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(206, 60, 160, 0.3);
+    transition: 0.3s;
+    margin-top: 8px;
+}
+
+.button:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(206,60,160,0.45);
+}
+
+.button:active {
+    transform: scale(0.96);
+}
+
+/* Rezultat */
+
+.result {
+    margin-top: 30px;
+    padding: 25px 18px;
+    background: linear-gradient(135deg, #fff0f8, #f5eaff);
+    border-radius: 25px;
+    animation: appear 0.7s ease;
+}
+
+.names {
+    font-size: 23px;
+    font-weight: 900;
+    color: #b83d91;
+    margin-bottom: 15px;
+    overflow-wrap: anywhere;
+}
+
+.names span {
+    color: #ff438e;
+    padding: 0 5px;
+}
+
+.result-title {
+    color: #a05b99;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.percentage {
+    font-size: 75px;
+    font-weight: 1000;
+    color: #ed3994;
+    text-shadow: 0 5px 15px rgba(237,57,148,0.2);
+    margin: 10px 0;
+}
+
+.bar-bg {
+    height: 17px;
+    width: 100%;
+    border-radius: 30px;
+    background: #ead5e9;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.bar {
+    height: 100%;
+    width: {{ ljubezen if ljubezen is not none else 0 }}%;
+    border-radius: 30px;
+    background: linear-gradient(90deg, #ff5b9e, #bd4bff);
+    animation: grow 1.5s ease;
+}
+
+@keyframes grow {
+    from { width: 0; }
+    to { width: {{ ljubezen if ljubezen is not none else 0 }}%; }
+}
+
+.message {
+    color: #a43e8b;
+    font-size: 17px;
+    font-weight: 800;
+    margin-top: 15px;
+}
+
+.again {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #d53c94;
+    font-weight: 800;
+    transition: 0.2s;
+}
+
+.again:hover {
+    color: #8c42db;
+    transform: scale(1.05);
+}
+
+.footer {
+    color: #c28bb5;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-top: 28px;
+    font-weight: bold;
+}
+
+.home {
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #a45b9a;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+@media(max-width: 450px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 31px;
+    }
+
+    .percentage {
+        font-size: 62px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="heart h1">💖</div>
+<div class="heart h2">💕</div>
+<div class="heart h3">💗</div>
+<div class="heart h4">💘</div>
+<div class="heart h5">💝</div>
+
+<div class="container">
+
+    <div class="logo">💗</div>
+
+    <h1>LOVE CALCULATOR</h1>
+
+    <p class="subtitle">
+        Ugotovi, ali sta ustvarjena drug za drugega! ✨
+    </p>
+
+    <form method="POST" action="/test_ljubezni">
+
+        <div class="input-box">
+            <label>💙 MOŠKO IME</label>
+            <input
+                type="text"
+                name="mosko"
+                placeholder="Vpiši moško ime..."
+                value="{{ mosko }}"
+                maxlength="30"
+                required>
+        </div>
+
+        <div class="input-box">
+            <label>💗 ŽENSKO IME</label>
+            <input
+                type="text"
+                name="zensko"
+                placeholder="Vpiši žensko ime..."
+                value="{{ zensko }}"
+                maxlength="30"
+                required>
+        </div>
+
+        <button type="submit" class="button">
+            💘 IZRAČUNAJ LJUBEZEN
+        </button>
+
+    </form>
+
+    {% if ljubezen is not none %}
+
+    <div class="result">
+
+        <div class="names">
+            {{ mosko }} <span>❤️</span> {{ zensko }}
+        </div>
+
+        <div class="result-title">
+            Vajino ljubezensko ujemanje:
+        </div>
+
+        <div class="percentage">
+            {{ ljubezen }}%
+        </div>
+
+        <div class="bar-bg">
+            <div class="bar"></div>
+        </div>
+
+        <div class="message">
+            {% if ljubezen >= 90 %}
+                💍 POPOLNA LJUBEZEN! Sanjski par!
+            {% elif ljubezen >= 70 %}
+                💕 WOW! Med vama so iskrice!
+            {% elif ljubezen >= 50 %}
+                ❤️ Zelo zanimiva kombinacija!
+            {% elif ljubezen >= 30 %}
+                💗 Mogoče se pa kaj razvije!
+            {% else %}
+                😂 Bolje, da ostaneta prijatelja!
+            {% endif %}
+        </div>
+
+    </div>
+
+    <a href="/test_ljubezni" class="again">
+        🔄 Poskusi z drugim imenom
+    </a>
+
+    {% endif %}
+
+    <a href="/" class="home">
+        ← Nazaj na začetno stran
+    </a>
+
+    <div class="footer">
+        MADE WITH LOVE ❤️
+    </div>
+
+</div>
+
+</body>
+</html>
